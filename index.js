@@ -14,7 +14,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 app.post("/send-mail", async(req, res) => {
   try{
-
+    const { name, Mobile,email,subject,message } = req.body;
+    const send_to = req.query.to;
     let transport = nodemailer.createTransport({
       host: "smtp.gmail.com",
       service: 'gmail',
@@ -25,29 +26,29 @@ app.post("/send-mail", async(req, res) => {
         pass: process.env.EMAIL_PASSWORD
       }
     });
-    console.log(transport)
     const mailOptions = {
-      from: 'sender@gmail.com', // Sender address
-      to: 'rajat.kumar2771@gmail.com', // List of recipients
-      subject: 'Node Mailer', // Subject line
-      text: 'Hello People!, Welcome to Bacancy!', // Plain text body
+      from: process.env.EMAIL_USERNAME, // Sender address
+      to: `${send_to == 'rs' ? process.env.SEND_TO_RAJENDRA : process.env.SEND_TO_RAJAT}`, // List of recipients
+      subject: subject, // Subject line
+      text: `Hi my name is ${name} \nMobile number : ${Mobile} \nEmail : ${email} \n\n${subject}`, // Plain text body
     };
     
-    console.log("2")
     transport.sendMail(mailOptions, function (err, info) {
-      console.log("3")
       if (err) {
         console.log(err)
       } else {
         console.log(info);
       }
-      console.log("4")
-      return res.send("true")
+      return res.send({status:true,message:"Your Message has been received. You will be contacted shortly"})
     });
-    console.log("5")
   }catch(e){
     console.log(e)
+    return res.send({status:false,message:"Internal Server Error"})
   }
+})
+
+app.get('/',(req,res)=>{
+  res.send("Application is working")
 })
 
 app.listen(port, () => {
