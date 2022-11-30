@@ -1,0 +1,31 @@
+{
+  "name": "contact-us-form-to-email",
+  "version": "1.0.0",
+  "description": "this package will send your contact us details to your email",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itsRajatkumar/Contact-us-form-to-Email.git"
+  },
+  "author": "Rajat Kumar Prajapati",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/itsRajatkumar/Contact-us-form-to-Email/issues"
+  },
+  "homepage": "https://github.com/itsRajatkumar/Contact-us-form-to-Email#readme",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "nodemailer": "^6.8.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
