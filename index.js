@@ -7,7 +7,14 @@ const cors = require('cors')
 const bodyParser = require('body-parser');
 
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.header("Access-Control-Allow-Headers", "x-access-token, Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.use(cors());
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -39,7 +46,7 @@ app.post("/send-mail", async(req, res) => {
       } else {
         console.log(info);
       }
-      return res.send({status:true,message:"Your Message has been received. You will be contacted shortly"})
+      return res.header({"Access-Control-Allow-Origin": "*"}).send({status:true,message:"Your Message has been received. You will be contacted shortly"})
     });
   }catch(e){
     console.log(e)
